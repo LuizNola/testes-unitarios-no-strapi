@@ -1,0 +1,14 @@
+// src/api/[nome-da-entidade]/services/customService.ts
+
+import { Strapi } from '@strapi/strapi'; // Import the Strapi type
+import { factories } from '@strapi/strapi';
+
+const customCategory = ({ strapi }: { strapi: Strapi }) => {
+  strapi.testIntegration = () => {
+    return "123"
+  };
+
+  return factories.createCoreService('api::category.category', { strapi });
+};
+
+export default customCategory;

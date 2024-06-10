@@ -1,0 +1,6 @@
+import { Strapi } from '@strapi/strapi';
+import customCategory from './services/01-custom-category.tsrenamed';
+
+export default (strapi: Strapi) => {
+  strapi.service('api::category.category').use(customCategory({ strapi }));
+};
