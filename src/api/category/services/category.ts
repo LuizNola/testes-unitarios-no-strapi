@@ -13,6 +13,6 @@ export default factories.createCoreService('api::category.category', ({strapi}) 
       }
     });
     const operation = (await testIntegration()) + (await testIntegrationTwo());
-    return operation;
+    return { operation, test};
   }
 }));

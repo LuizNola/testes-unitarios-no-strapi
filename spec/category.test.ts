@@ -2,7 +2,6 @@ import { setupStrapi } from "./helpers/strapi";
 export { testIntegration } from "./../src/integrations/lisa.integration";
 
 import categoryService from "./../src/api/category/services/category";
-import { testIntegrationTwo } from "./../src/integrations/lisa.integration";
 
 jest.mock('./../src/integrations/lisa.integration', () => ({
   testIntegration: jest.fn(() => 9),
@@ -12,26 +11,16 @@ jest.mock('./../src/integrations/lisa.integration', () => ({
 
 beforeAll(async () => {
   await setupStrapi();
-  const strp = {
-    ...strapi,
-    db: {
-      ...strapi.db,
-      query: () => ({
-        ...strapi.db.query,
-        findOne: (...args: any[]) => ("ok"),
-      }),
-    },
-  };
-  
-  console.log(strp);
 });
 
-it("Test must return 321", async () => {
+it("Sucess  ", async () => {
   // ARRANGE
+  let findOneSpy = jest.spyOn(strapi.db.query('api::category.category'), 'findOne');
+  findOneSpy.mockResolvedValue("teste");
 
   // ACT
   const response = await categoryService({strapi}).test()
 
   // ASSERT
-  expect(response).toBe(14);
+  expect(response).toEqual({"operation": 14, "test": "teste"});
 }, 100000);
